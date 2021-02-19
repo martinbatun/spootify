@@ -1,0 +1,38 @@
+<div class="sidebar-footer" [class.pinned]="pinned" [class.hovered]="hovered">
+    <!-- dropdowns -->
+    <div class="dropdown" *ngFor="let item of dropdowns">
+        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i [ngClass]="item.icon"></i>
+            <span *ngIf="item.badge" [ngClass]="item.badge" class="badge badge-pill notification">{{notifications.length}}</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuMessage">
+            <div *ngIf="item.title" class="dropdown-header text-dark">
+                <i [ngClass]="[item.icon, item.body.iClass]"></i>
+                <strong> {{item.title}}</strong>
+                <div class="dropdown-divider"></div>
+            </div>
+            <a class="dropdown-item" *ngFor="let i of this[item.body.array]" (click)="ch.click()">
+                <div class="dropdown-content">
+                    <div class="pic">
+                        <i *ngIf="item.body.icon" class="fas border rounded" [ngClass]="{ 'fa-check text-success border-success' : i.type == 1, 'fa-exclamation text-info border-info': i.type == 2, 'fa-exclamation-triangle text-warning border-warning': i.type == 3 }"></i>
+                        <img *ngIf="item.body.img" class="rounded-circle" [src]="i.img" [alt]="i.name">
+                    </div>
+                    <div class="content">
+                        <div *ngIf="item.body.title" class="title"><strong> {{i[item.body.title]}}</strong></div>
+                        <div *ngIf="item.body.detail" class="detail">{{i[item.body.detail]}}</div>
+                        <div *ngIf="item.body.time" class="time">{{i[item.body.time]}}</div>
+                    </div>
+                </div>
+            </a>
+            <a *ngIf="!is_login" class="dropdown-item" (click)="login.next(true)">Iniciar Sesion</a>
+            <a *ngIf="is_login" class="dropdown-item" (click)="logout.next(true)">Cerrar Sesion</a>
+            <a *ngIf="item.footer" [routerLink]="item.footer.href" class="dropdown-item text-center"><div class="dropdown-divider"></div> {{item.footer.text}}</a>
+        </div>
+    </div>
+    <!-- icon for pinned -->
+    <div class="pinned-footer">
+        <a href="#">
+            <i class="fas fa-ellipsis-h"></i>
+        </a>
+    </div>
+</div>

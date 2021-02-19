@@ -1,0 +1,69 @@
+<div class="page-wrapper default-theme sidebar-bg bg1" [class.toggled]="toggled" [class.pinned]="pinned" [class.hovered]="hovered">
+    <!-- sidebar  -->
+    <div id="sidebar" class="sidebar-wrapper nav toggled" (mouseover)="hovered=true" (mouseout)="hovered=false">
+        <!-- sidebar-content -->
+        <div class="sidebar-content">
+            <div class="px-3 pt-3"><a class="btn btn-outline-link btn-block btn-lg" role="button" id="pin-sidebar" aria-label="pin-sidebar" (click)="pinned = !pinned"><i class="fa fa-align-justify"></i></a></div>
+
+            <!-- sidebar header -->
+            <div class="sidebar-item sidebar-header flex-nowrap py-5 text-center">
+                <div class="user-pic  mx-auto">
+                  <img class="user-pic" src="https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png" alt="handymen" width="60" height="60">
+                </div>
+                <span class="user-role" style="color: #ffffff;">{{user ? user.display_name : ''}}</span>
+            </div>
+
+            <!-- sidebar body -->
+            <div class="sidebar-item sidebar-menu">
+                <ul>
+                    <li [@listStagger]="menuItems" *ngFor="let item of menuItems" routerLinkActive="active" [class.sidebar-dropdown]="item.children !== null" [class.header-menu]="item.header" (click)="collapse(false)">
+                      <!-- item -->
+                      <a *ngIf="!item.header" href="#" [routerLink]="[item.url]" [queryParams]="item.prms">
+                        <i [class]="item.icon"></i>
+                        <span class="menu-text">{{item.name}}</span>
+                      </a>
+                      <!-- submenu  -->
+                      <div *ngIf="!item.header && item.children !== null" class="sidebar-submenu pl-4">
+                          <ul>
+                              <li *ngFor="let subitem of item.children" routerLinkActive="active"><a [@listStagger]="item.children" [routerLink]="[item.url, subitem.url]" [queryParams]="item.prms" style="font-size: small;"><strong>{{subitem.name}}</strong></a></li>
+                          </ul>
+                      </div>
+                      <!-- title -->
+                      <span *ngIf="item.header">{{item.name}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- sidebar-footer -->
+        <sidebar-footer [style.width.%]="100" [pinned]="pinned" [hovered]="hovered" [is_login]="is_login" (login)="login()" (logout)="logout()"></sidebar-footer>
+
+    </div>
+    <!-- page -->
+    <main class="page-content">
+        <div id="overlay" class="overlay" (click)="collapse(false);"></div>
+        <section class="d-flex d-xl-flex align-items-end position-relative" style="background: '#ffb5a7'; min-height: 25vh;">
+            <div class="container-fluid">
+                <div class="row">
+                    <img src="assets/sidebar.png" alt="" width="100%" height="100%" [style.max-width.px]="460">
+                    <div class="col text-left text-sm-right pt-3 pt-sm-5">
+                        <h1 class="display-4 display-sm-1 mb-3 text-white"><strong>Your favorite tunes</strong></h1>
+                        <h1 class="text-white">All <i class="fas fa-sun" style="color:#ffd50d"></i> and all <i class="fas fa-moon text-dark"></i></h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group col-md-12 mt-3"><button class="btn btn-dark btn-lg" id="toggle-sidebar" type="button" (click)="toggled = !toggled">&nbsp;MENÚ</button></div>
+                </div>
+            </div>
+        </section>
+        <div class="container-fluid pt-5">
+          <router-outlet></router-outlet>
+        </div>
+    </main>
+</div>
+
+<loader></loader>

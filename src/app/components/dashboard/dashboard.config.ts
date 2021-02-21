@@ -25,7 +25,7 @@ export const MENUITEMS: MenuItems[] = [
   {
     name: "Search",
     children: null,
-    url: "/sliders",
+    url: "/search",
     icon: "fas fa-search",
     role: [ERole.Admin]
   },

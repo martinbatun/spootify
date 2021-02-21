@@ -50,7 +50,7 @@ export const ShrinkOut = trigger('shrinkOut', [
 
 export const PageAnimations = trigger('pageAnimations', [
   transition(':enter', [
-    query('.container, form', [
+    query('.container-fluid, form', [
       style({ opacity: 0, transform: 'translateX(-500px)' }),
       stagger(-30, [
         animate('500ms cubic-bezier(0.35, 0, 0.25, 1)', style({ opacity: 1, transform: 'none' }))

@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener, HostBinding } from '@angular/core';
 import { Router, Event, NavigationEnd } from "@angular/router";
 import { ApiService } from '@ser/api.service';
 import { LoaderService } from '@ser/loader.service';
-import { MenuItems, MENUITEMS} from './dashboard.config';
+import { MenuItems, MENUITEMS } from './dashboard.config';
 import { PageAnimations, ListStagger } from '@ani/animations';
 import { environment } from '@env/environment';
 declare var $: any;
@@ -11,6 +11,7 @@ export class User {
   id: number;
   display_name: string;
   email: string;
+  img: string;
 }
 
 @Component({
@@ -103,8 +104,9 @@ export class DashboardComponent implements OnInit {
   * @author Martin Batun Tec.
   */
   getUser(): void {
-    this.API.get('me').subscribe((user: User) => {
+    this.API.get('me').subscribe((user: any) => {
       this.user = user;
+      this.user.img = user.images.length > 0 ? user.images[0].url : null;
       this.API.update.next(true);
       this.is_login = true;
     });

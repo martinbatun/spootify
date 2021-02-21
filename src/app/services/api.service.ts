@@ -3,7 +3,6 @@ import { HttpClient, HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpR
 import { environment } from '@env/environment';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
-import { ErrorService } from './error.service';
 import { LoaderService } from './loader.service';
 
 
@@ -43,7 +42,7 @@ export class ApiService {
 // intercepta las llamadas a los endpoits para setear el token
 @Injectable() export class HttpConfigInterceptor implements HttpInterceptor {
 
-  constructor(private err: ErrorService, private loader: LoaderService) { }
+  constructor(private API: ApiService, private LS: LoaderService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -61,12 +60,13 @@ export class ApiService {
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
           // console.log('event--->>>', event);
-          this.loader.stop(1000);
+          this.LS.stop(1000);
         }
         return event;
       }),
       catchError((err: HttpErrorResponse) => {
-        this.err.checkError(err);
+        localStorage.clear();
+        this.API.update.next(null);
         return throwError(err);
       })
     );

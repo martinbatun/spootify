@@ -17,6 +17,10 @@ const routes: Routes = [
         loadChildren: () => import('@dash/discover/discover.module').then(m => m.DiscoverModule)
       },
       {
+        path: 'search',
+        loadChildren: () => import('@dash/search/search.module').then(m => m.SearchModule)
+      },
+      {
         path: 'favorites',
         loadChildren: () => import('@dash/favorites/favorites.module').then(m => m.FavoritesModule)
       },

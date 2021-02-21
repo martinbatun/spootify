@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DiscoverComponent } from './discover.component';
 import { RouterModule } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
+import { DataModule } from '@sha/data/data.module';
 
 
 @NgModule({
@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     CommonModule,
     RouterModule.forChild([{ path: '', component: DiscoverComponent }]),
-    MatButtonModule
+    DataModule
   ]
 })
 export class DiscoverModule { }

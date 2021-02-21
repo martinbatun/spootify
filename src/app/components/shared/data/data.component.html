@@ -1,0 +1,14 @@
+<div class="d-flex align-items-center">
+  <h1>{{data.title}}</h1>
+  <hr>
+  <button mat-icon-button color="primary" type="button" name="button" (click)="scroll(list, 'left')"><i class="fas fa-chevron-left"></i></button>
+  <button mat-icon-button color="primary" type="button" name="button" (click)="scroll(list, 'right')"><i class="fas fa-chevron-right"></i></button>
+</div>
+
+<!-- item -->
+<div class="scroll d-flex" #list>
+  <div matRipple [matRippleCentered]="true" *ngFor="let item of data.items">
+    <img [src]="item.img" loading="lazy">
+    <span>{{item.name}}</span>
+  </div>
+</div>

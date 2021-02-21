@@ -8,7 +8,7 @@
             <!-- sidebar header -->
             <div class="sidebar-item sidebar-header flex-nowrap py-5 text-center">
                 <div class="user-pic  mx-auto">
-                  <img class="user-pic" src="https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png" alt="handymen" width="60" height="60">
+                  <img class="user-pic" [src]="user && user.img ? user.img : 'https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png'" alt="user" width="60" height="60">
                 </div>
                 <span class="user-role" style="color: #ffffff;">{{user ? user.display_name : ''}}</span>
             </div>
